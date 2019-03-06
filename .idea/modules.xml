@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/basicTest.iml" filepath="$PROJECT_DIR$/basicTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../microservice-simple-provider-user/microservice-simple-provider-user.iml" filepath="$PROJECT_DIR$/../microservice-simple-provider-user/microservice-simple-provider-user.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../scalaTest/.idea/modules/scalatest.iml" filepath="$PROJECT_DIR$/../scalaTest/.idea/modules/scalatest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../scalaTest/.idea/modules/scalatest-build.iml" filepath="$PROJECT_DIR$/../scalaTest/.idea/modules/scalatest-build.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../springcloud/springcloud.iml" filepath="$PROJECT_DIR$/../springcloud/springcloud.iml" />
+    </modules>
+  </component>
+</project>
