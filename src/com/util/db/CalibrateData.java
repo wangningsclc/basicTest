@@ -100,7 +100,11 @@ public class CalibrateData {
         int i = sql.indexOf("from");
         sql = sql.substring(i+4).trim();
         int blank = sql.indexOf(" ");
-        return sql.substring(0, blank);
+        if (blank > 0) {
+            return sql.substring(0, blank);
+        } else {
+            return  sql;
+        }
     }
 
     private static boolean compare(String newAtom, String oldAtom) {
@@ -127,15 +131,15 @@ public class CalibrateData {
 
     public static Connection getNewConnection() throws Exception{
         String url = "jdbc:oracle:thin:@20.4.16.210:1521:cmisdb";
-        String username = "wangning";
-        String password = "glloans123";
+        String username = "sitOd";
+        String password = "sitOd";
         return DriverManager.getConnection(url, username, password);
     }
 
     public static Connection getOldConnection() throws Exception{
         String url = "jdbc:oracle:thin:@20.4.16.210:1521:cmisdb";
-        String username = "wangningo";
-        String password = "glloans123";
+        String username = "sitnew";
+        String password = "sitnew";
         return DriverManager.getConnection(url, username, password);
     }
 
