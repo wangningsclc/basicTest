@@ -7,23 +7,16 @@ package com.util.test;
 public class Test {
 
     public static void main(String[] args) {
-        StringBuffer sql = new StringBuffer();
-        sql.append("select l from LmLoan l");
-        sql.append(" where l.loanSts = ? and l.prcsPageDtInd=? and l.loanDebtSts in(?,?,?) ");
-        sql.append(" and (l.atpySts != 'SK' or l.atpySts is null)");
-        sql.append(" and (l.loanOdInd='Y' or l.loanStpAccInd='R')");
-        sql.append(" and ((l.loanDebtSts='NORM' and ");
-        sql.append(" ((l.loanGraceTyp='E' and ");
-        sql.append(getDateIncDay("l.nextDueDt",
-                "l.loanOdGrace", "+"));
-        sql.append(" <=?) ");
-        sql.append(" or ((l.loanGraceTyp='P' or l.loanGraceTyp is null) and l.nextDueDt <= ?))) ");// 转逾期增强
-        sql.append(" or (l.loanDebtSts = 'DELQ' and exists ");
-        sql.append(" (from LmPmShd ps where ps.id.loanNo = l.loanNo ");
-        sql.append(" and ps.prcpState = '10' ");
-        sql.append(" and ps.psDueDt <= ? and ps.id.psPerdNo <> 0 and ps.setlInd='N')))");// 后续期转逾期
-
-        System.out.println(sql);
+        try {
+            try {
+                int i = 0;
+                int a = 10 / i;
+            } catch (Exception e) {
+                throw new Exception("错误1", e);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static String getDateIncDay(String inputDate, String dayCount,String operation) {
