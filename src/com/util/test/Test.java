@@ -9,6 +9,7 @@ public class Test {
     public static void main(String[] args) {
         try {
             try {
+                //TEST
                 int i = 0;
                 int a = 10 / i;
             } catch (Exception e) {
