@@ -69,12 +69,18 @@ public class Person {
 
     public static void main(String[] args) {
         List<Person> list = new ArrayList<>();
-        System.out.println(list.stream().count());
         list.add(new Person("tom", new BigDecimal("1.1"),1));
         list.add(new Person("tom",new BigDecimal("1.3"),3));
         list.add(new Person("lucy",new BigDecimal("1.2"),5));
         list.add(new Person("lily",new BigDecimal("1.2"),7));
-        System.out.println(list.stream().map(Person::getName).collect(Collectors.toList()));
+//        System.out.println(list.stream().map(Person::getName).collect(Collectors.toList()));
+
+        list.stream().collect(Collectors.groupingBy(Person::getName));
+//
+//                groupingBy(Person::getFeeTyp, Collectors.counting())))
+//						.forEach((key, value) -> {
+//                            System.out.println(key);
+//                        });
 //        Map<String, List<Person>> map = list.stream().collect(Collectors.groupingBy(p ->p.getName().substring(0,1)));
 //        System.out.println(map);
 //        Person p = list.stream().max((p1, p2) -> p1.getMoney().compareTo(p2.getMoney())).get();
