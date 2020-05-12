@@ -3,10 +3,7 @@ package com.util.thread;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.LongAdder;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.concurrent.locks.StampedLock;
+import java.util.concurrent.locks.*;
 
 public class ThreadMain {
     //synchronized
@@ -29,4 +26,5 @@ public class ThreadMain {
     StampedLock stampedLock = new StampedLock();
     Semaphore semaphore = new Semaphore(10);
     Exchanger<String> exchanger = new Exchanger<>();
+    LockSupport lockSupport;
 }
