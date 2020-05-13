@@ -1,33 +1,35 @@
 package com.util.thread;
 
-import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.CyclicBarrier;
-import java.util.concurrent.Phaser;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.LongAdder;
-import java.util.concurrent.locks.LockSupport;
-import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.*;
 
 /**
  * @Date 2020/5/12
  */
 public class ThreadMain {
-
     //synchronized
     //volatile
-    static LongAdder longAdder = new LongAdder();
-    static AtomicInteger atomicInteger = new AtomicInteger();
-    static CountDownLatch countDownLatch = new CountDownLatch(100);
-    static ReentrantLock lock = new ReentrantLock();
-
-    static CyclicBarrier cyclicBarrier = new CyclicBarrier(10, new Runnable() {
+    //JUC中同步锁  java.util.concurent
+    ReentrantLock reentrantLock = new ReentrantLock();
+    AtomicInteger atomicInteger = new AtomicInteger();
+    LongAdder longAdder = new LongAdder();
+    CountDownLatch countDownLatch = new CountDownLatch(10);
+    CyclicBarrier cyclicBarrier = new CyclicBarrier(10, new Runnable() {
         @Override
         public void run() {
-            System.out.println("....");
+            System.out.println("满员 发车。。。");
         }
     });
-    static Phaser phaser;
-    static LockSupport lockSupport;
+
+    Phaser phaser = new Phaser();
+
+    ReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+    StampedLock stampedLock = new StampedLock();
+    Semaphore semaphore = new Semaphore(10);
+    Exchanger<String> exchanger = new Exchanger<>();
+    LockSupport lockSupport;
     public static void main(String[] args) throws Exception {
 //        MainInterface mainInterface = new SynClass();  //synchronized 同步锁
 //        MainInterface mainInterface = new AtomicIntClass();  //AtomicInteger 原子性递增
@@ -73,7 +75,7 @@ class SynClass implements MainInterface {
 
 
         long endTime =System.currentTimeMillis();
-        System.out.println("synchronized :" + count + " 消耗时间：" + (endTime-startTime) + "ms");
+        System.out.println("synchronized :" + count + " 消耗时间：" + (endTime - startTime) + "ms");
     }
 }
 
