@@ -9,22 +9,21 @@ import java.util.concurrent.locks.*;
  * @Date 2020/5/12
  */
 public class ThreadMain {
-    Exchanger<String> exchanger = new Exchanger<>();
-    LockSupport lockSupport;
     public static void main(String[] args) throws Exception {
 //        MainInterface mainInterface = new SynClass();  //synchronized 同步锁
 //        MainInterface mainInterface = new ReentrantLockClass();  //ReentrantLock 同步锁
+//        MainInterface mainInterface = new ConditionClass();  //Condition 线程通讯
 //        MainInterface mainInterface = new ReadWriteLockClass();  //ReentrantReadWriteLock 读写锁  读写分离
 //        MainInterface mainInterface = new StampedLockClass();  //StampedLock 读写锁 (悲观 乐观)  读的同时可以写
 //        MainInterface mainInterface = new AtomicIntClass();  //AtomicInteger 原子性递增
 //        MainInterface mainInterface = new LongAdderClass();  //LongAdder 分段式锁 (分段累加 最后汇总)
 //        MainInterface mainInterface = new CountDownClass();  //CountDownLatch 同步计数器
 //        MainInterface mainInterface = new CyclicBarrierClass();  //CyclicBarrier 循环栅栏
-//        MainInterface mainInterface = new PhaserClass(); //  阶段器  类似于循环栅栏 但是可以更精确的分段控制
+//        MainInterface mainInterface = new PhaserClass(); // Phaser 阶段器  类似于循环栅栏 但是可以更精确的分段控制
 //        MainInterface mainInterface = new SemaphoreClass(); //计数信号器 （限流作用）
 //        MainInterface mainInterface = new ExchangerClass();
         MainInterface mainInterface = new LockSupportClass();
-        mainInterface.mainMethod();
+//        mainInterface.mainMethod();
 
     }
 
@@ -106,6 +105,48 @@ class ReentrantLockClass implements MainInterface {
 
         long endTime =System.currentTimeMillis();
         System.out.println("synchronized :" + count + " 消耗时间：" + (endTime - startTime) + "ms");
+    }
+}
+
+class ConditionClass implements MainInterface {
+    Lock lock = new ReentrantLock();
+    Condition condition1 = lock.newCondition();
+    Condition condition2 = lock.newCondition();
+
+    @Override
+    public void mainMethod() throws Exception {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lock.lock();
+                System.out.println("线程1等待");
+                try {
+                    condition1.await();
+                    System.out.println("线程1继续");
+                    condition2.signal();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                lock.unlock();
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                lock.lock();
+                System.out.println("线程2等待");
+                try {
+                    condition1.signal();
+                    condition2.await();
+                    System.out.println("线程2继续");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                lock.unlock();
+            }
+        }).start();
+
     }
 }
 
