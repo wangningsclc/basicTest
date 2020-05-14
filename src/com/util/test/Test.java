@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by wn on 2017/12/13.
@@ -13,8 +14,7 @@ public class Test {
 
 
     public static void main(String[] arg) throws IOException {
-        String a = "asdf";
-        System.out.println(a.substring(0,4));
+        System.out.println(new Random().nextInt(10));
 
     }
     public static BigDecimal getBigDecimalFromObject(Object object) {
